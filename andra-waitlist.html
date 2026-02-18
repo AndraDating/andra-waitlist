@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andra — Real Connections, Real Places</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0f11;
+    --surface: #111820;
+    --card: #141e24;
+    --accent: #49adbe;
+    --accent2: #72c8d6;
+    --gold: #5fc8d8;
+    --text: #eaf4f6;
+    --muted: #6b8a91;
+    --border: rgba(73,173,190,0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 15% 20%, rgba(73,173,190,0.13) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 85% 70%, rgba(73,173,190,0.07) 0%, transparent 55%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Noise texture overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(13,13,16,0.7);
+    backdrop-filter: blur(20px);
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .logo span { color: var(--accent); }
+
+  .nav-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+
+  .nav-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 5rem;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(73,173,190,0.3);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    max-width: 900px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  /* WAITLIST FORM */
+  .waitlist-form {
+    display: flex;
+    gap: 0.6rem;
+    width: 100%;
+    max-width: 440px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .waitlist-form input {
+    flex: 1;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.9rem 1.2rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .waitlist-form input:focus { border-color: var(--accent); }
+  .waitlist-form input::placeholder { color: var(--muted); }
+
+  .waitlist-form button {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.9rem 1.6rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.25s;
+  }
+
+  .waitlist-form button:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(73,173,190,0.4); }
+
+  .social-proof {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .avatars {
+    display: flex;
+  }
+
+  .avatars span {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+    margin-left: -8px;
+    display: inline-block;
+  }
+
+  .avatars span:first-child { margin-left: 0; }
+  .av1 { background: linear-gradient(135deg, #49adbe, #72c8d6); }
+  .av2 { background: linear-gradient(135deg, #2d8fa0, #49adbe); }
+  .av3 { background: linear-gradient(135deg, #1a6f80, #2d8fa0); }
+  .av4 { background: linear-gradient(135deg, #3bbdd0, #72c8d6); }
+
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    animation: fadeUp 1s 0.8s ease both;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollLine 2s infinite;
+  }
+
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+  }
+
+  /* FEATURES */
+  .features {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 4rem;
+    max-width: 500px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .feature-card {
+    background: var(--card);
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .feature-card:first-child { border-radius: 24px 0 0 0; }
+  .feature-card:nth-child(2) { border-radius: 0 24px 0 0; }
+  .feature-card:nth-child(3) { border-radius: 0 0 0 24px; }
+  .feature-card:last-child { border-radius: 0 0 24px 0; }
+
+  .feature-card:hover { background: #162028; }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .feature-card:hover::before { opacity: 1; }
+
+  .feature-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    transition: color 0.3s;
+  }
+
+  .feature-card:hover .feature-number { color: rgba(73,173,190,0.2); }
+
+  .feature-icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    background: rgba(73,173,190,0.1);
+    border: 1px solid rgba(73,173,190,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .feature-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .feature-desc {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  .feature-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .pill {
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: rgba(73,173,190,0.08);
+    border: 1px solid rgba(73,173,190,0.2);
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+  }
+
+  /* HOW IT WORKS */
+  .how {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    margin-top: 4rem;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .step-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .step h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    letter-spacing: -0.01em;
+  }
+
+  .step p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* CTA */
+  .cta-section {
+    position: relative;
+    z-index: 1;
+    padding: 8rem 4rem;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-section h2 em { font-style: italic; color: var(--accent); }
+
+  .cta-section p {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 3rem;
+  }
+
+  .cta-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .cta-form input {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 1rem 1.4rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .cta-form input:focus { border-color: var(--accent); }
+  .cta-form input::placeholder { color: var(--muted); }
+
+  .cta-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(73,173,190,0.4); }
+  .cta-btn:hover::after { opacity: 1; }
+
+  .fine-print {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--muted);
+  }
+
+  .footer-logo span { color: var(--accent); }
+
+  footer p {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  /* SUCCESS STATE */
+  .success-msg {
+    display: none;
+    color: var(--gold);
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 0.8rem 1.5rem;
+    background: rgba(73,173,190,0.08);
+    border: 1px solid rgba(73,173,190,0.2);
+    border-radius: 100px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Intersection observer animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .features, .how { padding: 4rem 1.5rem; }
+    .features-grid { grid-template-columns: 1fr; gap: 2px; }
+    .feature-card:first-child { border-radius: 24px 24px 0 0; }
+    .feature-card:nth-child(2) { border-radius: 0; }
+    .feature-card:nth-child(3) { border-radius: 0; }
+    .feature-card:last-child { border-radius: 0 0 24px 24px; }
+    .steps { grid-template-columns: 1fr; gap: 2rem; }
+    .cta-section { padding: 5rem 1.5rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+    .waitlist-form { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <img src="data:image/jpeg;base64,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" alt="Andra" style="height: 52px; width: auto; border-radius: 14px;" />
+  </div>
+  <button class="nav-btn" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Join Waitlist</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="eyebrow">Coming Soon</div>
+  <h1>Dating that happens <em>where you are</em></h1>
+  <p class="hero-sub">Andra connects you with real people in your city — through a live map and local events. No swiping, no algorithms. Just genuine proximity.</p>
+
+  <div class="waitlist-form">
+    <input type="email" id="hero-email" placeholder="your@email.com" />
+    <button onclick="joinWaitlist('hero-email', 'hero-success')">Get Early Access</button>
+  </div>
+  <div class="success-msg" id="hero-success">✓ You're on the list! We'll be in touch.</div>
+
+  <div class="social-proof">
+    <div class="avatars">
+      <span class="av1"></span>
+      <span class="av2"></span>
+      <span class="av3"></span>
+      <span class="av4"></span>
+    </div>
+    <span>800+ people already waiting</span>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Explore</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <p class="section-label reveal">Features</p>
+  <h2 class="section-title reveal">Two ways to find your person</h2>
+
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-number">01</div>
+      <div class="feature-icon">🗺️</div>
+      <h3 class="feature-title">Dating Map</h3>
+      <p class="feature-desc">See compatible people around you on a live map. Browse their interests, nationality, religion, and what they're looking for — then send a like to spark a match. When you both like each other, you can start a real conversation.</p>
+      <div class="feature-pills">
+        <span class="pill">Location-based</span>
+        <span class="pill">Filter by values</span>
+        <span class="pill">Mutual matching</span>
+      </div>
+    </div>
+
+    <div class="feature-card reveal">
+      <div class="feature-number">02</div>
+      <div class="feature-icon">🎉</div>
+      <h3 class="feature-title">Events</h3>
+      <p class="feature-desc">Discover events happening in the nearest city — from parties to meetups. See who's attending, spot potential connections ahead of time, and invite your matches to join you. Meeting IRL has never been this natural.</p>
+      <div class="feature-pills">
+        <span class="pill">Local events</span>
+        <span class="pill">See attendees</span>
+        <span class="pill">Invite matches</span>
+      </div>
+    </div>
+
+    <div class="feature-card reveal" style="grid-column: 1 / -1; border-radius: 0 0 24px 24px;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+        <div>
+          <h3 class="feature-title" style="font-size: 1.8rem; margin-bottom: 1rem;">Why Andra is different</h3>
+          <p class="feature-desc">Most apps reduce connection to a left or right swipe. Andra believes real relationships start with real places — shared neighborhoods, shared events, shared moments in the same city. Proximity is the spark.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid var(--border);">
+            <span style="font-size: 1.2rem;">🚫</span>
+            <div>
+              <div style="font-size: 0.85rem; font-weight: 500;">No endless swiping</div>
+              <div style="font-size: 0.78rem; color: var(--muted);">Intentional browsing, not gamified scrolling</div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid var(--border);">
+            <span style="font-size: 1.2rem;">📍</span>
+            <div>
+              <div style="font-size: 0.85rem; font-weight: 500;">Rooted in your city</div>
+              <div style="font-size: 0.78rem; color: var(--muted);">Connect with people you might actually run into</div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid var(--border);">
+            <span style="font-size: 1.2rem;">🤝</span>
+            <div>
+              <div style="font-size: 0.85rem; font-weight: 500;">From chat to IRL</div>
+              <div style="font-size: 0.78rem; color: var(--muted);">Events bridge the gap between online and real life</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <p class="section-label reveal">How it works</p>
+  <h2 class="section-title reveal">From map to meeting in three steps</h2>
+
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">1</div>
+      <h3>Open the Map</h3>
+      <p>See real people near you who match your preferences — filtered by interests, values, and what they're looking for in a relationship.</p>
+    </div>
+    <div class="step reveal" style="transition-delay: 0.1s">
+      <div class="step-num">2</div>
+      <h3>Like & Match</h3>
+      <p>Send a like to show your interest. When it's mutual, a match is created and the conversation begins — no awkward first moves.</p>
+    </div>
+    <div class="step reveal" style="transition-delay: 0.2s">
+      <div class="step-num">3</div>
+      <h3>Meet at an Event</h3>
+      <p>Browse local events, see who's attending, and invite your matches to join. Make your first meeting feel natural, not forced.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <p class="section-label">Early Access</p>
+  <h2>Be the first to find your <em>someone</em></h2>
+  <p>Andra is launching soon in select cities. Join the waitlist and get early access when we open the doors.</p>
+
+  <div class="cta-form">
+    <input type="text" placeholder="Your name" id="cta-name" />
+    <input type="email" placeholder="your@email.com" id="cta-email" />
+    <button class="cta-btn" onclick="joinWaitlistFull()">Reserve My Spot →</button>
+    <div class="success-msg" id="cta-success" style="width:100%">✓ You're on the list! We'll reach out soon.</div>
+    <p class="fine-print">No spam. We'll only email you when we're ready to launch.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">
+    <img src="data:image/jpeg;base64,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" alt="Andra" style="height: 28px; width: auto; border-radius: 8px; opacity: 0.6;" />
+  </div>
+  <p>© 2025 Andra. Real connections, real places.</p>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  async function submitToMailchimp(email, name, btnEl, successId, fieldsToHide) {
+    if (!email || !email.includes('@')) return false;
+
+    btnEl.textContent = 'Joining...';
+    btnEl.disabled = true;
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name }),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        fieldsToHide.forEach(el => el.style.display = 'none');
+        btnEl.style.display = 'none';
+        document.getElementById(successId).style.display = 'block';
+      } else {
+        btnEl.textContent = 'Try Again';
+        btnEl.disabled = false;
+        alert(data.error || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      btnEl.textContent = 'Try Again';
+      btnEl.disabled = false;
+      alert('Network error. Please try again.');
+    }
+  }
+
+  async function joinWaitlist(inputId, successId) {
+    const input = document.getElementById(inputId);
+    const btn = input.parentElement.querySelector('button');
+    if (!input.value || !input.value.includes('@')) {
+      input.style.borderColor = 'var(--accent)';
+      input.focus();
+      return;
+    }
+    await submitToMailchimp(input.value, '', btn, successId, [input]);
+  }
+
+  async function joinWaitlistFull() {
+    const name = document.getElementById('cta-name');
+    const email = document.getElementById('cta-email');
+    const btn = document.querySelector('.cta-btn');
+    if (!email.value || !email.value.includes('@')) {
+      email.style.borderColor = 'var(--accent)';
+      email.focus();
+      return;
+    }
+    await submitToMailchimp(email.value, name.value, btn, 'cta-success', [name, email]);
+  }
+</script>
+</body>
+</html>
