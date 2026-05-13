@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Terms & Conditions — Andra</title>
+<style>
+  :root {
+    --bg: #0a0f11;
+    --surface: #111820;
+    --card: #141e24;
+    --accent: #49adbe;
+    --accent2: #72c8d6;
+    --gold: #5fc8d8;
+    --text: #eaf4f6;
+    --muted: #6b8a91;
+    --border: rgba(73,173,190,0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 15% 20%, rgba(73,173,190,0.13) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 85% 70%, rgba(73,173,190,0.07) 0%, transparent 55%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(13,13,16,0.7);
+    backdrop-filter: blur(20px);
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .nav-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  .page-hero {
+    position: relative;
+    z-index: 1;
+    padding: 10rem 4rem 5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .page-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .page-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+  }
+
+  .page-hero h1 em { font-style: italic; color: var(--accent); }
+
+  .page-hero p {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 560px;
+  }
+
+  .page-updated {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 0.8rem;
+    opacity: 0.7;
+  }
+
+  .content-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 4rem 8rem;
+  }
+
+  .section-block {
+    margin-bottom: 3.5rem;
+    padding-bottom: 3.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-block:last-child {
+    border-bottom: none;
+  }
+
+  .section-block h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.2rem;
+    color: var(--text);
+  }
+
+  .section-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    margin-bottom: 0.7rem;
+    color: var(--text);
+    margin-top: 1.5rem;
+  }
+
+  .section-block p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-block ul, .section-block ol {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.8;
+    font-weight: 300;
+    padding-left: 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-block li { margin-bottom: 0.4rem; }
+
+  .section-block a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .section-block a:hover { color: var(--accent2); }
+
+  .highlight-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .highlight-box p { margin: 0; }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .footer-logo span { color: var(--accent); }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .footer-links a {
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+  footer p {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .page-hero, .content-wrap { padding-left: 1.5rem; padding-right: 1.5rem; }
+    footer { flex-direction: column; text-align: center; padding: 2rem 1.5rem; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">
+    <img src="data:image/jpeg;base64,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" alt="Andra" style="height: 36px; width: auto; border-radius: 10px; opacity: 0.7;" />
+    Andr<span>a</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="privacy.html">Privacy Policy</a></li>
+    <li><a href="terms.html">Terms</a></li>
+    <li><a href="support.html">Support</a></li>
+  </ul>
+  <a href="index.html#cta" class="nav-btn">Join Waitlist</a>
+</nav>
+
+<div class="page-hero">
+  <span class="page-label">Legal</span>
+  <h1>Terms & <em>Conditions</em></h1>
+  <p>By using Andra, you agree to these terms. Please read them carefully — they govern your use of our app and services.</p>
+  <p class="page-updated">Last updated: May 2025</p>
+</div>
+
+<div class="content-wrap">
+
+  <div class="section-block">
+    <h2>1. Acceptance of Terms</h2>
+    <p>By downloading, installing, or using Andra, you confirm that you are at least 18 years of age and agree to be bound by these Terms & Conditions and our Privacy Policy. If you do not agree, please do not use Andra.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>2. Eligibility</h2>
+    <p>To use Andra, you must:</p>
+    <ul>
+      <li>Be at least 18 years of age</li>
+      <li>Be a human individual (not a corporation or automated system)</li>
+      <li>Successfully complete our face verification process</li>
+      <li>Not have been previously banned from Andra for violating these Terms</li>
+      <li>Not be a registered sex offender or convicted of a relevant criminal offence</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h2>3. Account & Verification</h2>
+    <p>To create an Andra account, you must:</p>
+    <ul>
+      <li>Upload a minimum of 2 clear, recent photos of yourself</li>
+      <li>Complete a live facial scan that matches your uploaded photos</li>
+      <li>Provide accurate and truthful information in your profile</li>
+    </ul>
+    <p>You are responsible for keeping your account credentials secure. You must not share your account or allow others to access it. Notify us immediately at <a href="mailto:security@andra.app">security@andra.app</a> if you suspect unauthorised access.</p>
+    <div class="highlight-box">
+      <p>⚠️ Attempting to bypass face verification or create a fake account will result in an immediate and permanent ban.</p>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <h2>4. Acceptable Use</h2>
+    <p>You agree NOT to use Andra to:</p>
+    <ul>
+      <li>Harass, bully, abuse, stalk, threaten, or harm other users</li>
+      <li>Post false, misleading, or deceptive content</li>
+      <li>Impersonate any person or entity</li>
+      <li>Solicit money, financial information, or gifts from other users</li>
+      <li>Promote or engage in prostitution, escort services, or sex work</li>
+      <li>Share sexually explicit content without consent</li>
+      <li>Discriminate against users based on race, ethnicity, religion, gender, sexual orientation, or disability</li>
+      <li>Use bots, scripts, or automated tools to interact with the app</li>
+      <li>Scrape, copy, or harvest user data</li>
+      <li>Violate any applicable local, national, or international law</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h2>5. Location & Private Spots</h2>
+    <p>Andra requires access to your device's location to function. By using the app, you consent to your approximate location being visible to other users on the Dating Map when the app is active.</p>
+    <p>You may set up to 3 Private Spots where your location will be hidden. You are responsible for correctly configuring your Private Spots to protect your own privacy. Andra is not liable for any privacy issues arising from misconfigured Private Spots.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>6. Content & Intellectual Property</h2>
+    <p>You retain ownership of any content (photos, text, etc.) you upload to Andra. By uploading content, you grant Andra a non-exclusive, worldwide, royalty-free licence to display, reproduce, and distribute that content solely for the purpose of operating the app.</p>
+    <p>You confirm that any content you upload:</p>
+    <ul>
+      <li>Is of yourself (for profile photos)</li>
+      <li>Does not infringe any third-party copyright, trademark, or other intellectual property rights</li>
+      <li>Does not contain nudity, sexual content, or graphic violence</li>
+      <li>Does not depict anyone under the age of 18</li>
+    </ul>
+    <p>The Andra name, logo, app design, and all related intellectual property are owned exclusively by Andra and may not be used without our written permission.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>7. Matches, Chat & Events</h2>
+    <p>Andra provides a platform for users to connect — we do not guarantee any specific number of matches, messages, or event opportunities. We are not responsible for the conduct of other users on or off the platform.</p>
+    <p>When meeting another user in person through Andra, please prioritise your personal safety. We recommend meeting in public places and informing a friend or family member of your plans.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>8. Subscriptions & Payments</h2>
+    <p>Andra may offer free and premium subscription tiers. Premium features will be clearly marked and priced within the app. All payments are processed securely through Apple App Store or Google Play Store.</p>
+    <ul>
+      <li>Subscriptions automatically renew unless cancelled at least 24 hours before the renewal date</li>
+      <li>Refunds are handled according to the respective app store's refund policy</li>
+      <li>We reserve the right to change pricing with reasonable notice</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h2>9. Termination & Bans</h2>
+    <p>We reserve the right to suspend or permanently ban any account that violates these Terms, at our sole discretion, with or without notice. Reasons for termination include but are not limited to:</p>
+    <ul>
+      <li>Harassment or abusive behaviour towards other users</li>
+      <li>Attempting to bypass verification or create fake profiles</li>
+      <li>Fraudulent or illegal activity</li>
+      <li>Repeated violations of Community Guidelines</li>
+    </ul>
+    <p>You may delete your account at any time within the app settings. Upon deletion, your profile is removed immediately from the Dating Map.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>10. Disclaimers & Limitation of Liability</h2>
+    <p>Andra is provided "as is" without warranties of any kind. We do not guarantee that the app will be error-free, uninterrupted, or that you will find a match.</p>
+    <p>To the maximum extent permitted by law, Andra shall not be liable for:</p>
+    <ul>
+      <li>Any indirect, incidental, or consequential damages</li>
+      <li>Loss of data or profits</li>
+      <li>The actions or conduct of other users, on or off the platform</li>
+      <li>Any harm arising from in-person meetings arranged through the app</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h2>11. Governing Law</h2>
+    <p>These Terms are governed by and construed in accordance with applicable law. Any disputes arising from these Terms or your use of Andra shall be subject to the exclusive jurisdiction of the competent courts.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>12. Changes to Terms</h2>
+    <p>We may update these Terms from time to time. We will notify you of material changes via email or in-app notification at least 14 days before they take effect. Continued use of Andra after changes take effect constitutes your acceptance.</p>
+    <p>Questions about these Terms? Contact us at <a href="mailto:legal@andra.app">legal@andra.app</a></p>
+  </div>
+
+</div>
+
+<footer>
+  <a href="index.html" class="footer-logo">Andr<span>a</span></a>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms & Conditions</a>
+    <a href="support.html">Support</a>
+  </div>
+  <p>© 2025 Andra. Real connections, real places.</p>
+</footer>
+</body>
+</html>

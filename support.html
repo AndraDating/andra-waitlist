@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Support — Andra</title>
+<style>
+
+  :root {
+    --bg: #0a0f11;
+    --surface: #111820;
+    --card: #141e24;
+    --accent: #49adbe;
+    --accent2: #72c8d6;
+    --gold: #5fc8d8;
+    --text: #eaf4f6;
+    --muted: #6b8a91;
+    --border: rgba(73,173,190,0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 15% 20%, rgba(73,173,190,0.13) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 85% 70%, rgba(73,173,190,0.07) 0%, transparent 55%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(13,13,16,0.7);
+    backdrop-filter: blur(20px);
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .nav-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  .page-hero {
+    position: relative;
+    z-index: 1;
+    padding: 10rem 4rem 5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .page-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .page-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+  }
+
+  .page-hero h1 em { font-style: italic; color: var(--accent); }
+
+  .page-hero p {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 560px;
+  }
+
+  .page-updated {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 0.8rem;
+    opacity: 0.7;
+  }
+
+  .content-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 4rem 8rem;
+  }
+
+  .section-block {
+    margin-bottom: 3.5rem;
+    padding-bottom: 3.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-block:last-child {
+    border-bottom: none;
+  }
+
+  .section-block h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.2rem;
+    color: var(--text);
+  }
+
+  .section-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    margin-bottom: 0.7rem;
+    color: var(--text);
+    margin-top: 1.5rem;
+  }
+
+  .section-block p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-block ul, .section-block ol {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.8;
+    font-weight: 300;
+    padding-left: 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-block li { margin-bottom: 0.4rem; }
+
+  .section-block a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .section-block a:hover { color: var(--accent2); }
+
+  .highlight-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .highlight-box p { margin: 0; }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .footer-logo span { color: var(--accent); }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .footer-links a {
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+  footer p {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .page-hero, .content-wrap { padding-left: 1.5rem; padding-right: 1.5rem; }
+    footer { flex-direction: column; text-align: center; padding: 2rem 1.5rem; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+
+
+  /* FAQ */
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    margin-top: 2.5rem;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .faq-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    overflow: hidden;
+  }
+
+  .faq-item:first-child { border-radius: 16px 16px 0 0; }
+  .faq-item:last-child { border-radius: 0 0 16px 16px; }
+
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: left;
+    padding: 1.4rem 1.8rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    transition: background 0.2s;
+  }
+
+  .faq-q:hover { background: rgba(73,173,190,0.05); }
+  .faq-q.open { color: var(--accent); }
+
+  .faq-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    color: var(--accent);
+  }
+
+  .faq-q.open .faq-icon { transform: rotate(45deg); }
+
+  .faq-a {
+    display: none;
+    padding: 0 1.8rem 1.4rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.8;
+    font-weight: 300;
+    border-top: 1px solid var(--border);
+  }
+
+  .faq-a.open { display: block; }
+
+  /* Categories */
+  .faq-cats {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .faq-cat {
+    padding: 0.45rem 1rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .faq-cat.active, .faq-cat:hover {
+    background: rgba(73,173,190,0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Contact Form */
+  .contact-section {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 4rem 8rem;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 3rem;
+    align-items: start;
+    margin-top: 2.5rem;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .contact-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.2rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .contact-card-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .contact-card-title {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  .contact-card-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .contact-card a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* Form */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-group label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.85rem 1.1rem;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent);
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: var(--muted);
+  }
+
+  .form-group select option {
+    background: var(--card);
+    color: var(--text);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 130px;
+  }
+
+  .form-submit {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s;
+    align-self: flex-start;
+  }
+
+  .form-submit:hover {
+    background: var(--accent2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(73,173,190,0.4);
+  }
+
+  .form-success {
+    display: none;
+    color: var(--accent);
+    font-size: 0.9rem;
+    padding: 1rem 1.4rem;
+    background: rgba(73,173,190,0.08);
+    border: 1px solid rgba(73,173,190,0.2);
+    border-radius: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .contact-section { padding: 0 1.5rem 6rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">
+    <img src="data:image/jpeg;base64,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" alt="Andra" style="height: 36px; width: auto; border-radius: 10px; opacity: 0.7;" />
+    Andr<span>a</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="privacy.html">Privacy Policy</a></li>
+    <li><a href="terms.html">Terms</a></li>
+    <li><a href="support.html">Support</a></li>
+  </ul>
+  <a href="index.html#cta" class="nav-btn">Join Waitlist</a>
+</nav>
+
+<div class="page-hero">
+  <span class="page-label">Help Center</span>
+  <h1>How can we <em>help?</em></h1>
+  <p>Find answers to common questions below, or reach out to the Andra team directly. We typically respond within 24 hours.</p>
+</div>
+
+<div class="content-wrap">
+  <div class="section-block">
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-cats">
+      <button class="faq-cat active" onclick="filterFaq('all', this)">All</button>
+      <button class="faq-cat" onclick="filterFaq('account', this)">Account</button>
+      <button class="faq-cat" onclick="filterFaq('map', this)">Dating Map</button>
+      <button class="faq-cat" onclick="filterFaq('privacy', this)">Privacy</button>
+      <button class="faq-cat" onclick="filterFaq('events', this)">Events</button>
+      <button class="faq-cat" onclick="filterFaq('safety', this)">Safety</button>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item" data-cat="account">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How does face verification work?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          To create an Andra account, you upload at least 2 photos of yourself, then complete a live face scan. Our system compares the scan to your photos. If they match, your account is verified and created. If they don't match, account creation is blocked. Biometric data from the face scan is deleted immediately after verification — it is never stored.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="account">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How do I delete my account?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          Go to Settings → Account → Delete Account. Your profile is removed from the Dating Map immediately. Personal data is deleted within 30 days, and messages within 90 days. This action is permanent and cannot be undone.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="account">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can I use Andra without showing my location?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          Andra is a location-based app, so location access is required for the core Dating Map feature. However, you can pause your visibility at any time from your profile settings — you'll still be able to browse, but others won't see you on the map.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="map">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How does the Dating Map work?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          The Dating Map shows verified users near your current location. Tap any profile pin to view their interests, nationality, religion, and what they're looking for. Send a like to show interest — when both users like each other, a match is created and chat opens. You can also switch to List View to browse profiles without the map.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="map">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How do matches work?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          Matches on Andra are always mutual. You send a like to someone — if they like you back, a match is created and a private chat opens between you. There is no one-sided swiping. Both users must express interest before any contact is possible.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="map">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What filters can I use on the map?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          You can filter by: Gender, Age range, Maximum distance, What they're looking for (casual, serious, friendship, etc.), Nationality, Religion, and Zodiac sign. Only users who match your filter criteria will appear on your map.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="privacy">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What are Private Spots?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          Private Spots are locations where you never want to appear on the Dating Map — for example, your home, workplace, or gym. You can set up to 3 Private Spots, each with an invisible radius of 100m or 200m. When you're within that radius, you automatically become invisible to other users on the map. Set them up in Settings → Privacy → Private Spots.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="privacy">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can other users see my exact location?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          No. Andra never reveals your precise GPS coordinates. Other users see only an approximate location on the map. Combined with Private Spots, you have strong control over your location visibility.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="privacy">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How is my data protected?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          We use end-to-end encryption for messages, HTTPS/TLS for all data in transit, and encrypted storage for sensitive data. We never sell your personal data to third parties. For full details, please read our Privacy Policy.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="events">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How do Events work?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          In the Events tab, choose your nearest city to see upcoming singles events — parties, run clubs, cocktail nights, and more. You can see who's attending each event, and if you have matches, you can invite them to join you. Events are a great way to move from chatting to meeting IRL naturally.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="events">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How do I get tickets for an event?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          You can purchase tickets directly within the Andra app. Once purchased, your ticket and QR code will appear in your profile under "My Events." Payments are processed securely through Apple Pay or Google Pay.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="safety">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How do I report or block someone?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          To report or block a user: Open their profile → tap the three dots (⋯) in the top right corner → select "Report" or "Block." Reported accounts are reviewed by our safety team within 24 hours. Blocked users can no longer see you on the map or send you messages.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="safety">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is everyone on Andra real?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          Every Andra user has passed our face verification process — uploading 2+ photos and completing a live face scan that must match. This makes it extremely difficult to create fake profiles. If you suspect someone is not genuine, please report them immediately.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT FORM -->
+<section class="contact-section">
+  <span class="page-label">Contact Us</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.5rem);line-height:1.1;letter-spacing:-0.02em;margin-bottom:0.5rem;">Still need <em style="font-style:italic;color:var(--accent)">help?</em></h2>
+  <p style="color:var(--muted);font-size:0.95rem;font-weight:300;line-height:1.7;">Send us a message and our team will get back to you within 24 hours.</p>
+
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="contact-card">
+        <div class="contact-card-icon">📧</div>
+        <div>
+          <div class="contact-card-title">General Support</div>
+          <div class="contact-card-desc"><a href="mailto:support@andra.app">support@andra.app</a></div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-icon">🔒</div>
+        <div>
+          <div class="contact-card-title">Privacy Questions</div>
+          <div class="contact-card-desc"><a href="mailto:privacy@andra.app">privacy@andra.app</a></div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-icon">🚨</div>
+        <div>
+          <div class="contact-card-title">Safety & Reports</div>
+          <div class="contact-card-desc"><a href="mailto:safety@andra.app">safety@andra.app</a></div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-icon">⏱️</div>
+        <div>
+          <div class="contact-card-title">Response Time</div>
+          <div class="contact-card-desc">Within 24 hours on business days</div>
+        </div>
+      </div>
+    </div>
+
+    <form class="contact-form" onsubmit="submitContact(event)" id="contact-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" name="first_name" placeholder="Sarah" required />
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" name="last_name" placeholder="Miller" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="sarah@email.com" required />
+      </div>
+      <div class="form-group">
+        <label>Topic</label>
+        <select name="topic" required>
+          <option value="" disabled selected>Select a topic...</option>
+          <option>Account & Verification</option>
+          <option>Dating Map Issue</option>
+          <option>Events & Tickets</option>
+          <option>Privacy & Data</option>
+          <option>Report a User</option>
+          <option>Technical Problem</option>
+          <option>Billing & Subscription</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea name="message" placeholder="Describe your issue or question in detail..." required></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Message →</button>
+      <div class="form-success" id="form-success">✓ Message sent! We'll get back to you within 24 hours.</div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <a href="index.html" class="footer-logo">Andr<span>a</span></a>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms & Conditions</a>
+    <a href="support.html">Support</a>
+  </div>
+  <p>© 2025 Andra. Real connections, real places.</p>
+</footer>
+
+<script>
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    // close all
+    document.querySelectorAll('.faq-q').forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+    if (!isOpen) {
+      btn.classList.add('open');
+      answer.classList.add('open');
+    }
+  }
+
+  function filterFaq(cat, btn) {
+    document.querySelectorAll('.faq-cat').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.faq-item').forEach(item => {
+      if (cat === 'all' || item.dataset.cat === cat) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+        item.querySelector('.faq-q').classList.remove('open');
+        item.querySelector('.faq-a').classList.remove('open');
+      }
+    });
+  }
+
+  async function submitContact(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('.form-submit');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('https://formspree.io/f/xkoyawjk', {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        form.querySelectorAll('input, select, textarea').forEach(el => el.style.display = 'none');
+        btn.style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+      } else {
+        btn.textContent = 'Try Again';
+        btn.disabled = false;
+        alert('Something went wrong. Please try again or email us at support@andra.app');
+      }
+    } catch (err) {
+      btn.textContent = 'Try Again';
+      btn.disabled = false;
+      alert('Network error. Please check your connection and try again.');
+    }
+  }
+</script>
+</body>
+</html>
